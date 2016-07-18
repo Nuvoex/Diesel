@@ -1,0 +1,41 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <!--EditText Style-->
+    <style name="EditTextStyle" parent="@android:style/Widget.EditText">
+        <item name="android:textSize">16sp</item>
+        <item name="android:paddingBottom">@dimen/standard_padding</item>
+    </style>
+
+    <style name="EditTextPassword" parent="EditTextStyle">
+        <item name="android:fontFamily">sans-serif</item>
+    </style>
+
+
+    <!--Button Styles-->
+    <style name="Button" parent="Widget.AppCompat.Button" />
+
+    <style name="Button.Green">
+        <item name="android:textColor">@color/text_primary_inverse</item>
+    </style>
+
+    <!--Full Width Button without shadow-->
+    <style name="Button.Green.BorderLess">
+        <item name="android:background">@drawable/green_btn</item>
+    </style>
+    <!--Transparent Button-->
+    <style name="ButtonTransparent" parent="Base.Widget.AppCompat.Button.Borderless">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:minWidth">@dimen/btn_min_width</item>
+    </style>
+
+
+</resources>

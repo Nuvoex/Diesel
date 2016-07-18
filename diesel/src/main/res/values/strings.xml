@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Diesel</string>
+    <!--Log In-->
+    <string name="login_mobile">Mobile Number</string>
+    <string name="login_pwd">Password</string>
+    <string name="login_text">Login</string>
+    <string name="login_error_phone_number">Please enter 10 digit phone number</string>
+    <string name="login_error_password">Password must be minimum 6 chars</string>
+    <string name="login_failed_401">Login failed, wrong username/password</string>
+    <string name="login_failed">Login failed</string>
+</resources>

@@ -1,0 +1,47 @@
+<resources>
+    <!-- Common -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="half_vertical_margin">8dp</dimen>
+    <dimen name="standard_padding">16dp</dimen>
+    <dimen name="standard_margin">16dp</dimen>
+
+    <!--Button-->
+    <dimen name="btn_min_width">50dp</dimen>
+    <dimen name="btn_radius">1dp</dimen>
+
+    <!--Log In-->
+    <dimen name="login_padding">30dp</dimen>
+    <dimen name="login_greyCardHt">6dp</dimen>
+<!--
+    &lt;!&ndash;Home&ndash;&gt;
+    <dimen name="home_card_height">66dp</dimen>
+    <dimen name="home_cash_detail_ht">72dp</dimen>
+
+    &lt;!&ndash;Assign Package&ndash;&gt;
+    <dimen name="assign_awb_no">16sp</dimen>
+
+    &lt;!&ndash;Shipment Detail&ndash;&gt;
+    <dimen name="shipment_status">50dp</dimen>
+
+    &lt;!&ndash;Package Acceptance&ndash;&gt;
+    <dimen name="package_btn_width">62dp</dimen>
+    <dimen name="package_btn_height">48dp</dimen>
+
+
+    &lt;!&ndash;Awb Details &ndash;&gt;
+    <dimen name="awb_detail_value">16sp</dimen>
+    <dimen name="awb_detail_padding_bottom">30dp</dimen>
+
+    &lt;!&ndash;Navigation drawer&ndash;&gt;
+    <dimen name="navigation_drawer_header_height">96dp</dimen>
+
+    &lt;!&ndash;Status list item&ndash;&gt;
+    <dimen name="status_item_size">54dp</dimen>
+
+    <dimen name="logo_width_height">64dp</dimen>
+    <dimen name="nav_drawer_name">18sp</dimen>
+    <dimen name="nav_drawer_phone">14sp</dimen>
+
+    <dimen name="shipment_list_padding_top_bottom">12dp</dimen>-->
+</resources>
