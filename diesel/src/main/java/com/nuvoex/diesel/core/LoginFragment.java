@@ -8,6 +8,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,34 +19,36 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.nuvoex.diesel.R;
+import com.nuvoex.diesel.Utils;
 import com.nuvoex.library.LumiereBaseActivity;
 import com.nuvoex.library.LumiereBaseFragment;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class LoginFragment extends LumiereBaseFragment implements LoginContract.View {
 
-    //@BindView(R.id.edit_username)
     EditText mEditUsername;
 
-    // @BindView(R.id.edit_password)
     EditText mEditPassword;
 
-    // @BindView(R.id.button_login)
     Button mButtonLogin;
 
-    //private Unbinder mUnBinder;
     private OnFragmentInteractionListener mListener;
     private LoginContract.Presenter mPresenter;
 
     public LoginFragment() {
     }
 
-    public static LoginFragment newInstance() {
+    public static LoginFragment newInstance()
+    {
         return new LoginFragment();
     }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
+        new LoginPresenter(this, Repositories.getRepositoryInstance());
         if (context instanceof OnFragmentInteractionListener) {
             mListener = (OnFragmentInteractionListener) context;
         } else {
@@ -56,11 +59,23 @@ public class LoginFragment extends LumiereBaseFragment implements LoginContract.
 
 
     @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        String jsonString= Utils.getJsonFile(getContext(),"diesel",getContext().getPackageName());
+        try {
+            JSONObject object= new JSONObject(jsonString);
+            Log.i("anshul 1",object.getString("drawable"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+            Log.i("anshul 1","error : "+ jsonString);
+
+        }
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_login, container, false);
-        //    mUnBinder = ButterKnife.bind(this, view);
-
         return view;
     }
 
@@ -72,7 +87,6 @@ public class LoginFragment extends LumiereBaseFragment implements LoginContract.
 
     @Override
     public void onDestroyView() {
-        //mUnBinder.unbind();
         mPresenter.onDestroy();
         super.onDestroyView();
     }
@@ -92,11 +106,11 @@ public class LoginFragment extends LumiereBaseFragment implements LoginContract.
     }
 
     private void initView() {
-         mEditUsername = (EditText) getView().findViewById(R.id.edit_username);
+        mEditUsername = (EditText) getView().findViewById(R.id.edit_username);
 
-         mEditPassword = (EditText) getView().findViewById(R.id.edit_password);
+        mEditPassword = (EditText) getView().findViewById(R.id.edit_password);
 
-         mButtonLogin = (Button) getView().findViewById(R.id.button_login);
+        mButtonLogin = (Button) getView().findViewById(R.id.button_login);
         mButtonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

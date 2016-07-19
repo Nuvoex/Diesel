@@ -1,12 +1,9 @@
 package com.nuvoex.login;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 
 import com.nuvoex.diesel.core.LoginFragment;
-import com.nuvoex.diesel.core.LoginPresenter;
-import com.nuvoex.diesel.core.Repositories;
 import com.nuvoex.library.LumiereBaseActivity;
 
 public class MainActivity extends LumiereBaseActivity implements LoginFragment.OnFragmentInteractionListener {
@@ -16,13 +13,13 @@ public class MainActivity extends LumiereBaseActivity implements LoginFragment.O
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
         LoginFragment loginFragment =
                 (LoginFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_container);
         if (loginFragment == null) {
             loginFragment = LoginFragment.newInstance();
             addFragment(loginFragment, false, LoginFragment.getFragmentTag());
         }
-        new LoginPresenter(loginFragment, Repositories.getRepositoryInstance());
     }
 
     @Override
