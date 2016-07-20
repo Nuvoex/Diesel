@@ -7,8 +7,8 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.text.Editable;
+import android.text.InputFilter;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,32 +16,27 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.nuvoex.diesel.R;
-import com.nuvoex.diesel.Utils;
 import com.nuvoex.library.LumiereBaseActivity;
 import com.nuvoex.library.LumiereBaseFragment;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 public class LoginFragment extends LumiereBaseFragment implements LoginContract.View {
 
     EditText mEditUsername;
-
     EditText mEditPassword;
-
     Button mButtonLogin;
 
-    private OnFragmentInteractionListener mListener;
+    private OnLoginResult mListener;
     private LoginContract.Presenter mPresenter;
 
     public LoginFragment() {
     }
 
-    public static LoginFragment newInstance()
-    {
+    public static LoginFragment newInstance(Context context) {
+        Config.Companion.getInstance(context);
         return new LoginFragment();
     }
 
@@ -49,11 +44,11 @@ public class LoginFragment extends LumiereBaseFragment implements LoginContract.
     public void onAttach(Context context) {
         super.onAttach(context);
         new LoginPresenter(this, Repositories.getRepositoryInstance());
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
+        if (context instanceof OnLoginResult) {
+            mListener = (OnLoginResult) context;
         } else {
             throw new RuntimeException(context.toString()
-                    + " must implement " + OnFragmentInteractionListener.class.getSimpleName());
+                    + " must implement " + OnLoginResult.class.getSimpleName());
         }
     }
 
@@ -61,15 +56,7 @@ public class LoginFragment extends LumiereBaseFragment implements LoginContract.
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        String jsonString= Utils.getJsonFile(getContext(),"diesel",getContext().getPackageName());
-        try {
-            JSONObject object= new JSONObject(jsonString);
-            Log.i("anshul 1",object.getString("drawable"));
-        } catch (JSONException e) {
-            e.printStackTrace();
-            Log.i("anshul 1","error : "+ jsonString);
 
-        }
     }
 
     @Override
@@ -118,6 +105,15 @@ public class LoginFragment extends LumiereBaseFragment implements LoginContract.
             }
         });
 
+        ImageView mLogoImage = (ImageView) getView().findViewById(R.id.login_logo_img);
+        mLogoImage.setImageResource(getResources().getIdentifier(Config.Companion.getSInstance().getBannerLogo(), "drawable", getContext().getPackageName()));
+        setEditTextMaxLength(mEditUsername,Config.Companion.getSInstance().getUserName());
+    }
+
+    public void setEditTextMaxLength(EditText editText, int length) {
+        InputFilter[] FilterArray = new InputFilter[1];
+        FilterArray[0] = new InputFilter.LengthFilter(length);
+        editText.setFilters(FilterArray);
     }
 
 
@@ -240,8 +236,8 @@ public class LoginFragment extends LumiereBaseFragment implements LoginContract.
     }
 
     @Override
-    public void navigateToHomeActivity() {
-        mListener.navigateToHomeActivity();
+    public void loginSuccess() {
+        mListener.onLoginSuccess();
     }
 
     @Override
@@ -249,8 +245,4 @@ public class LoginFragment extends LumiereBaseFragment implements LoginContract.
         mPresenter = presenter;
     }
 
-
-    public interface OnFragmentInteractionListener {
-        void navigateToHomeActivity();
-    }
 }

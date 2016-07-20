@@ -25,7 +25,7 @@ public class LoginContract {
 
         void showLoginFailed();
 
-        void navigateToHomeActivity();
+        void loginSuccess();
     }
 
     interface Presenter extends BasePresenter {
@@ -39,5 +39,7 @@ public class LoginContract {
         void onTextChanged(String username, String password);
 
         void onDestroy();
+
+        int getUserNameLength();
     }
 }

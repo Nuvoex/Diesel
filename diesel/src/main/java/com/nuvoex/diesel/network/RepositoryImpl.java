@@ -1,12 +1,7 @@
-package com.nuvoex.diesel.core;
+package com.nuvoex.diesel.network;
 
-
-
-import com.nuvoex.diesel.LoginPrefs;
 import com.nuvoex.diesel.model.LoginRequest;
 import com.nuvoex.diesel.model.LoginResponse;
-import com.nuvoex.diesel.network.ApiModule;
-import com.nuvoex.diesel.network.ApiService;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -56,8 +51,8 @@ public class RepositoryImpl implements Repository {
 
     @Override
     public void saveLoginDetails(LoginResponse loginResponse) {
-        LoginPrefs.getInstance().setIsUserLoggedIn(true);
-        LoginPrefs.getInstance().setToken(loginResponse.accessToken);
-        LoginPrefs.getInstance().setUserInfo(loginResponse.userInfo);
+       /* JacksonPrefs.getInstance().setIsUserLoggedIn(true);
+        JacksonPrefs.getInstance().setToken(loginResponse.accessToken);
+        JacksonPrefs.getInstance().setUserInfo(loginResponse.userInfo);*/
     }
 }

@@ -7,7 +7,7 @@ import com.nuvoex.diesel.model.LoginResponse;
 
 public class LoginPresenter implements LoginContract.Presenter {
 
-    private static final int USERNAME_LENGTH = 10;
+    private int USERNAME_LENGTH = 10;
     private static final int PASSWORD_MINIMUM_LENGTH = 6;
 
     private String mUsername;
@@ -23,6 +23,11 @@ public class LoginPresenter implements LoginContract.Presenter {
         mLoginView = loginView;
         mRepository = repository;
         mLoginView.setPresenter(this);
+        updateConfig();
+    }
+
+    private void updateConfig() {
+        USERNAME_LENGTH = Config.Companion.getSInstance().getUserName();
     }
 
     @Override
@@ -70,12 +75,17 @@ public class LoginPresenter implements LoginContract.Presenter {
 
     }
 
+    @Override
+    public int getUserNameLength() {
+        return USERNAME_LENGTH;
+    }
+
     private Repository.LoginCallback mLoginCallback = new Repository.LoginCallback() {
         @Override
         public void successful(LoginResponse loginResponse) {
             mLoginView.showViewContent();
             mRepository.saveLoginDetails(loginResponse);
-            mLoginView.navigateToHomeActivity();
+            mLoginView.loginSuccess();
         }
 
         @Override

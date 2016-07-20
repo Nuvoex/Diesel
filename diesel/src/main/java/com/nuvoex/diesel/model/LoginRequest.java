@@ -2,6 +2,7 @@ package com.nuvoex.diesel.model;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.nuvoex.diesel.core.Config;
 
 public class LoginRequest {
 
@@ -24,7 +25,7 @@ public class LoginRequest {
     public LoginRequest(String username, String password) {
         this.username = username;
         this.password = password;
-        this.identity = "vendor";
+        this.identity = Config.Companion.getSInstance().getAppIdentity();
         this.grantType = "password";
     }
 

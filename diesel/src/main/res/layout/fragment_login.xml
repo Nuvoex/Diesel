@@ -12,8 +12,7 @@
         android:id="@+id/login_logo_img"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:src="@drawable/group" />
+        android:layout_centerHorizontal="true" />
 
     <View
         android:id="@+id/login_grey_card"
@@ -44,12 +43,12 @@
 
                 <android.support.design.widget.TextInputEditText
                     android:id="@+id/edit_username"
+                    style="@style/EditTextStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/login_mobile"
                     android:inputType="number"
-                    android:maxLength="10"
-                    style="@style/EditTextStyle" />
+                    android:maxLength="10" />
 
             </android.support.design.widget.TextInputLayout>
 
@@ -59,12 +58,12 @@
 
                 <android.support.design.widget.TextInputEditText
                     android:id="@+id/edit_password"
+                    style="@style/EditTextPassword"
                     android:layout_width="match_parent"
-                    android:maxLength="16"
                     android:layout_height="wrap_content"
                     android:hint="@string/login_pwd"
                     android:inputType="textPassword"
-                    style="@style/EditTextPassword"
+                    android:maxLength="16"
                     android:singleLine="true" />
 
             </android.support.design.widget.TextInputLayout>
@@ -72,12 +71,12 @@
 
             <Button
                 android:id="@+id/button_login"
+                style="@style/Button.Green.BorderLess"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="26dp"
-                style="@style/Button.Green.BorderLess"
                 android:enabled="false"
-                android:text="@string/login_text"/>
+                android:text="@string/login_text" />
 
         </LinearLayout>
 

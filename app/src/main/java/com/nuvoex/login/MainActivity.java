@@ -4,9 +4,10 @@ import android.os.Bundle;
 import android.view.MenuItem;
 
 import com.nuvoex.diesel.core.LoginFragment;
+import com.nuvoex.diesel.core.OnLoginResult;
 import com.nuvoex.library.LumiereBaseActivity;
 
-public class MainActivity extends LumiereBaseActivity implements LoginFragment.OnFragmentInteractionListener {
+public class MainActivity extends LumiereBaseActivity implements OnLoginResult {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,7 +18,7 @@ public class MainActivity extends LumiereBaseActivity implements LoginFragment.O
         LoginFragment loginFragment =
                 (LoginFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_container);
         if (loginFragment == null) {
-            loginFragment = LoginFragment.newInstance();
+            loginFragment = LoginFragment.newInstance(this);
             addFragment(loginFragment, false, LoginFragment.getFragmentTag());
         }
     }
@@ -47,10 +48,7 @@ public class MainActivity extends LumiereBaseActivity implements LoginFragment.O
         return false;
     }
 
-    @Override
-    public void navigateToHomeActivity() {
 
-    }
 
     @Override
     protected boolean useAppBar() {
@@ -60,5 +58,10 @@ public class MainActivity extends LumiereBaseActivity implements LoginFragment.O
     @Override
     protected boolean useNavDrawer() {
         return false;
+    }
+
+    @Override
+    public void onLoginSuccess() {
+
     }
 }
