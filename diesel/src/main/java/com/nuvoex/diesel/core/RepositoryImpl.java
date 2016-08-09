@@ -1,7 +1,6 @@
 package com.nuvoex.diesel.core;
 
 
-
 import com.nuvoex.diesel.LoginPrefs;
 import com.nuvoex.diesel.model.LoginRequest;
 import com.nuvoex.diesel.model.LoginResponse;
@@ -29,7 +28,11 @@ public class RepositoryImpl implements Repository {
                 if (response.isSuccessful()) {
                     LoginResponse loginResponse = response.body();
                     Timber.d("Login successful" + response.body().accessToken);
-                    loginCallback.successful(loginResponse);
+                    if (loginCallback.isLatestApk(loginResponse.latestVersionCode)) {
+                        loginCallback.successful(loginResponse);
+                    }else{
+                        loginCallback.appUpdateRequired();
+                    }
                 } else {
                     if (response.code() == 401) {
                         loginCallback.wrongUsernamePassword();

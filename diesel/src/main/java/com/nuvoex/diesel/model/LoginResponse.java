@@ -29,4 +29,8 @@ public class LoginResponse {
     @Expose
     public UserInfo userInfo;
 
+    @SerializedName("build_version")
+    @Expose
+    public int latestVersionCode;
+
 }
