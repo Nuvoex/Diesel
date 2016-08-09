@@ -8,4 +8,10 @@
     <string name="login_error_password">Password must be minimum 6 chars</string>
     <string name="login_failed_401">Login failed, wrong username/password</string>
     <string name="login_failed">Login failed</string>
+
+    <!--  app update-->
+    <string name="update_app">Update Application</string>
+    <string name="update_app_message">Your current application is out of date. Please update the application.</string>
+    <string name="download">Download</string>
+    <string name="cancel">Cancel</string>
 </resources>

@@ -10,7 +10,7 @@ public class LoginRequest {
     @Expose
     public String grantType;
 
-    @SerializedName("username")
+    @SerializedName("phone_number")
     @Expose
     public String username;
 

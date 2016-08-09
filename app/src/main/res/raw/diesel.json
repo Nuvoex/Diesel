@@ -1,7 +1,7 @@
 {
   "drawable": "login_logo",
-  "user_name_length": 2,
+  "user_name_length": 11,
   "base_url": "http://nolan-stg.nuvoex.com/",
-  "identity": "vendor",
-  "accept_header": "application/vnd.jackson.v1"
+  "identity": "tc",
+  "accept_header": "application/vnd.akira.v1"
 }

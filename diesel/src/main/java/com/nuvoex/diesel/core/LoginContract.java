@@ -1,6 +1,8 @@
 package com.nuvoex.diesel.core;
 
 
+import android.content.Context;
+
 import com.nuvoex.diesel.core.Repository.LoginCallback;
 
 public class LoginContract {
@@ -26,6 +28,10 @@ public class LoginContract {
         void showLoginFailed();
 
         void loginSuccess();
+
+        void showAppUpdateDialog();
+
+        boolean isLatestApk(int latestVersionCode);
     }
 
     interface Presenter extends BasePresenter {

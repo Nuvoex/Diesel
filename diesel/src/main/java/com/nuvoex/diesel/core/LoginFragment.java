@@ -1,11 +1,20 @@
 package com.nuvoex.diesel.core;
 
+import android.content.ComponentName;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.pm.ActivityInfo;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.TextWatcher;
@@ -22,6 +31,8 @@ import android.widget.TextView;
 import com.nuvoex.diesel.R;
 import com.nuvoex.library.LumiereBaseActivity;
 import com.nuvoex.library.LumiereBaseFragment;
+
+import java.util.List;
 
 public class LoginFragment extends LumiereBaseFragment implements LoginContract.View {
 
@@ -107,7 +118,7 @@ public class LoginFragment extends LumiereBaseFragment implements LoginContract.
 
         ImageView mLogoImage = (ImageView) getView().findViewById(R.id.login_logo_img);
         mLogoImage.setImageResource(getResources().getIdentifier(Config.Companion.getSInstance().getBannerLogo(), "drawable", getContext().getPackageName()));
-        setEditTextMaxLength(mEditUsername,Config.Companion.getSInstance().getUserName());
+        setEditTextMaxLength(mEditUsername, Config.Companion.getSInstance().getUserName());
     }
 
     public void setEditTextMaxLength(EditText editText, int length) {
@@ -245,4 +256,81 @@ public class LoginFragment extends LumiereBaseFragment implements LoginContract.
         mPresenter = presenter;
     }
 
+    public Context getApplicationContext() {
+        return getContext().getApplicationContext();
+    }
+
+    @Override
+    public boolean isLatestApk(int latestVersionCode) {
+        Context context = getApplicationContext();
+        int version;
+        try {
+            PackageInfo pInfo = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
+            version = pInfo.versionCode;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+            return true;
+        }
+        if (latestVersionCode > version) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public void showAppUpdateDialog() {
+        AlertDialog alertDialog = new AlertDialog.Builder(getContext()).create();
+        alertDialog.setTitle(getResources().getString(R.string.update_app));
+        alertDialog.setMessage(getResources().getString(R.string.update_app_message));
+
+        alertDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialog) {
+                getActivity().finish();
+            }
+        });
+
+        alertDialog.setButton(DialogInterface.BUTTON_POSITIVE, getResources().getString(R.string.download), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                redirectToPlayStore();
+                getActivity().finish();
+            }
+        });
+
+        alertDialog.setButton(DialogInterface.BUTTON_NEGATIVE, getResources().getString(R.string.cancel), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+        alertDialog.show();
+    }
+
+
+    public void redirectToPlayStore() {
+        String playStoreID = getApplicationContext().getPackageName();
+
+        Intent rateIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + playStoreID));
+        boolean isPlayStoreAppPresent = false;
+        // Need to directly open play store app only as more apps may have handled market:// Urls
+        final List<ResolveInfo> otherApps = getApplicationContext().getPackageManager().queryIntentActivities(rateIntent, 0);
+        for (ResolveInfo otherApp : otherApps)
+            if (otherApp.activityInfo.applicationInfo.packageName.equals("com.android.vending")) {
+
+                ActivityInfo otherAppActivity = otherApp.activityInfo;
+                ComponentName componentName = new ComponentName(
+                        otherAppActivity.applicationInfo.packageName,
+                        otherAppActivity.name
+                );
+                rateIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_MULTIPLE_TASK | Intent.FLAG_ACTIVITY_NO_HISTORY);
+                rateIntent.setComponent(componentName);
+                isPlayStoreAppPresent = true;
+                break;
+            }
+        if (!isPlayStoreAppPresent) {
+            rateIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + playStoreID));
+        }
+        getApplicationContext().startActivity(rateIntent);
+    }
 }
