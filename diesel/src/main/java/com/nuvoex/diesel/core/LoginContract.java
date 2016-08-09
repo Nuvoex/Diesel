@@ -29,9 +29,9 @@ public class LoginContract {
 
         void loginSuccess();
 
-        Context getApplicationContext();
-
         void showAppUpdateDialog();
+
+        boolean isLatestApk(int latestVersionCode);
     }
 
     interface Presenter extends BasePresenter {
@@ -47,7 +47,5 @@ public class LoginContract {
         void onDestroy();
 
         int getUserNameLength();
-
-        void redirectToPlayStore();
     }
 }
