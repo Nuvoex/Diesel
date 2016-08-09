@@ -1,11 +1,13 @@
 package com.nuvoex.diesel.core;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.TextWatcher;
@@ -107,7 +109,7 @@ public class LoginFragment extends LumiereBaseFragment implements LoginContract.
 
         ImageView mLogoImage = (ImageView) getView().findViewById(R.id.login_logo_img);
         mLogoImage.setImageResource(getResources().getIdentifier(Config.Companion.getSInstance().getBannerLogo(), "drawable", getContext().getPackageName()));
-        setEditTextMaxLength(mEditUsername,Config.Companion.getSInstance().getUserName());
+        setEditTextMaxLength(mEditUsername, Config.Companion.getSInstance().getUserName());
     }
 
     public void setEditTextMaxLength(EditText editText, int length) {
@@ -245,4 +247,38 @@ public class LoginFragment extends LumiereBaseFragment implements LoginContract.
         mPresenter = presenter;
     }
 
+    @Override
+    public Context getApplicationContext() {
+        return getContext().getApplicationContext();
+    }
+
+    @Override
+    public void showAppUpdateDialog() {
+        AlertDialog alertDialog = new AlertDialog.Builder(getContext()).create();
+        alertDialog.setTitle(getResources().getString(R.string.update_app));
+        alertDialog.setMessage(getResources().getString(R.string.update_app_message));
+
+        alertDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialog) {
+                getActivity().finish();
+            }
+        });
+
+        alertDialog.setButton(DialogInterface.BUTTON_POSITIVE, getResources().getString(R.string.download), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                mPresenter.redirectToPlayStore();
+                getActivity().finish();
+            }
+        });
+
+        alertDialog.setButton(DialogInterface.BUTTON_NEGATIVE, getResources().getString(R.string.cancel), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+        alertDialog.show();
+    }
 }

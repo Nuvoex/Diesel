@@ -1,6 +1,8 @@
 package com.nuvoex.diesel.core;
 
 
+import android.content.Context;
+
 import com.nuvoex.diesel.core.Repository.LoginCallback;
 
 public class LoginContract {
@@ -26,6 +28,10 @@ public class LoginContract {
         void showLoginFailed();
 
         void loginSuccess();
+
+        Context getApplicationContext();
+
+        void showAppUpdateDialog();
     }
 
     interface Presenter extends BasePresenter {
@@ -41,5 +47,7 @@ public class LoginContract {
         void onDestroy();
 
         int getUserNameLength();
+
+        void redirectToPlayStore();
     }
 }
