@@ -104,5 +104,16 @@ public class LoginPresenter implements LoginContract.Presenter {
         public void networkFailure() {
             mLoginView.showNetworkError();
         }
+
+        @Override
+        public boolean isLatestApk(int latestVersionCode) {
+            return mLoginView.isLatestApk(latestVersionCode);
+
+        }
+
+        @Override
+        public void appUpdateRequired() {
+            mLoginView.showAppUpdateDialog();
+        }
     };
 }

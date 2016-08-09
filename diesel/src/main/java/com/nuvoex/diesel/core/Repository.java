@@ -14,6 +14,10 @@ public interface Repository {
         void failed();
 
         void networkFailure();
+
+        boolean isLatestApk(int latestVersionCode);
+
+        void appUpdateRequired();
     }
 
     void login(String username, String password, LoginCallback loginCallback);
