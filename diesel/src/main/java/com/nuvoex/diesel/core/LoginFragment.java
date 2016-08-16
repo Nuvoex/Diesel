@@ -47,7 +47,7 @@ public class LoginFragment extends LumiereBaseFragment implements LoginContract.
     }
 
     public static LoginFragment newInstance(Context context) {
-        Config.Companion.getInstance(context);
+      //  Config.Companion.getInstance(context);
         return new LoginFragment();
     }
 
