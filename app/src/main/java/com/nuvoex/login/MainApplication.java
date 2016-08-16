@@ -12,6 +12,6 @@ public class MainApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        Diesel.INSTANCE.initialize(getApplicationContext());
+        Diesel.initialize(getApplicationContext());
     }
 }

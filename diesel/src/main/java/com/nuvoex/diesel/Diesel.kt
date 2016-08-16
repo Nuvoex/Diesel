@@ -8,7 +8,7 @@ import com.nuvoex.diesel.core.Config
  */
 object Diesel {
 
-    public fun initialize(context: Context) {
+   @JvmStatic public fun initialize(context: Context) {
         Config.getInstance(context)
         mApplicationContext = context
     }
