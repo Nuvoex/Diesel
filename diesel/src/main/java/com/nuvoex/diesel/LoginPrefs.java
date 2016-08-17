@@ -25,7 +25,7 @@ public class LoginPrefs {
 
     public static LoginPrefs getInstance() {
         if (sInstance == null) {
-            sInstance = new LoginPrefs(LoginApp.sInstance.getApplicationContext());
+            sInstance = new LoginPrefs(Diesel.INSTANCE.getApplicationContext());
         }
         return sInstance;
     }
