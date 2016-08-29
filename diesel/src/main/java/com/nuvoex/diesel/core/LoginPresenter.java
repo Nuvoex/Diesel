@@ -19,12 +19,9 @@ public class LoginPresenter implements LoginContract.Presenter {
     @NonNull
     private final Repository mRepository;
 
-    private boolean mMockLogin;
-
-    public LoginPresenter(@NonNull LoginContract.View loginView, @NonNull Repository repository, boolean mockLogin) {
+    public LoginPresenter(@NonNull LoginContract.View loginView, @NonNull Repository repository) {
         mLoginView = loginView;
         mRepository = repository;
-        mMockLogin = mockLogin;
         mLoginView.setPresenter(this);
         updateConfig();
     }
@@ -51,7 +48,7 @@ public class LoginPresenter implements LoginContract.Presenter {
     @Override
     public void callLoginApi(String username, String password, Repository.LoginCallback loginCallback) {
         mLoginView.showProgressIndicator();
-        if (!mMockLogin) {
+        if (!Config.Companion.getSInstance().isMock()) {
             mRepository.login(username, password, loginCallback);
         } else {
             loginCallback.successful(new LoginResponse());

@@ -36,8 +36,6 @@ import java.util.List;
 
 public class LoginFragment extends LumiereBaseFragment implements LoginContract.View {
 
-    private static final String EXTRA_MOCK_LOGIN = "mock_login";
-
     EditText mEditUsername;
     EditText mEditPassword;
     Button mButtonLogin;
@@ -54,17 +52,13 @@ public class LoginFragment extends LumiereBaseFragment implements LoginContract.
 
     public static LoginFragment newInstance(Context context, boolean mockLogin) {
       //  Config.Companion.getInstance(context);
-        LoginFragment fragment = new LoginFragment();
-        Bundle args = new Bundle();
-        args.putBoolean(EXTRA_MOCK_LOGIN, mockLogin);
-        fragment.setArguments(args);
-        return fragment;
+        return new LoginFragment();
     }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        new LoginPresenter(this, Repositories.getRepositoryInstance(), getArguments().getBoolean(EXTRA_MOCK_LOGIN));
+        new LoginPresenter(this, Repositories.getRepositoryInstance());
         if (context instanceof OnLoginResult) {
             mListener = (OnLoginResult) context;
         } else {
