@@ -34,6 +34,7 @@ class Config private constructor(var context: Context) {
     private var baseUrl: String? = null;
     private lateinit var app_identity: String
     private lateinit var acceptHeader: String;
+    private var mock: Boolean = false;
 
     private fun updateConfig(configJson: JSONObject) {
         usernameLength = configJson.optInt("user_name_length", 10)
@@ -41,6 +42,7 @@ class Config private constructor(var context: Context) {
         baseUrl = configJson.optString("base_url");
         app_identity = configJson.optString("identity");
         acceptHeader = configJson.optString("accept_header");
+        mock = configJson.optBoolean("mock");
     }
 
     private lateinit var jsonString: String;
@@ -79,5 +81,8 @@ class Config private constructor(var context: Context) {
         return acceptHeader;
     }
 
+    fun isMock(): Boolean? {
+        return mock;
+    }
 
 }
